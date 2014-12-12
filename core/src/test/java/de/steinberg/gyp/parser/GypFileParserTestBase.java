@@ -1,8 +1,8 @@
-package de.steinberg.gyp.parser;
+package test.java.de.steinberg.gyp.parser;
 
 import de.steinberg.gyp.TestBase;
-import de.steinberg.gyp.model.GypFile;
-import de.steinberg.gyp.parser.json.GypFileParser;
+import main.java.de.steinberg.gyp.model.GypFile;
+import main.java.de.steinberg.gyp.parser.json.GypFileParser;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;

@@ -1,13 +1,11 @@
 package de.steinberg.gyp.parser.json;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import de.steinberg.gyp.exception.ParserException;
 import de.steinberg.gyp.model.GypFile;
 
 import javax.inject.Inject;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -24,8 +22,8 @@ public class GypFileParser implements StreamParser<GypFile> {
         String inputString;
         try {
             inputString = read(input);
-            inputString = removeTheAnnoyingComma (inputString);
-            inputString = removeTheAnnoyingComma (inputString);
+            inputString = removeTheAnnoyingComma(inputString);
+            inputString = removeTheAnnoyingComma(inputString);
             return gson.fromJson(inputString, GypFile.class);
         } catch (Exception e) {
             throw new ParserException(e);
