@@ -1,6 +1,7 @@
 package de.steinberg.gyp.core.interpreter;
 
 import de.steinberg.gyp.core.TestBase;
+import de.steinberg.gyp.core.filesystem.FileSet;
 import de.steinberg.gyp.core.json.GypFileParser;
 import de.steinberg.gyp.core.model.GypFile;
 import de.steinberg.gyp.core.model.GypFileTree;
@@ -24,8 +25,11 @@ public class GypFileInterpreterTest extends TestBase {
     public void test() {
         GypFile gypFile = parser.parse(ClassLoader.getSystemResourceAsStream("files.gypi"), GypFile.class);
         String base = "some/folder";
-        GypFileTree tree = interpreter.getFilesListFrom("some/folder", gypFile);
+        GypFileTree tree = interpreter.getFilesListFrom(base, gypFile);
         assertNotNull(tree);
+
+        FileSet fileSet = tree.getRoot().getAllFiles();
+        assertEquals(10, fileSet.size());
     }
 
 }

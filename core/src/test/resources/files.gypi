@@ -4,8 +4,8 @@
 			
 		],
 		'sequencer_sources_win': [
-			'<(ROOT)/test1',
-			'<(ROOT)/test2',
+			'<(ROOT)test1',
+			'<(ROOT)test2',
 		],
 		'sequencer_sources': [
 			'<@(sequencer_sources_mac)',
