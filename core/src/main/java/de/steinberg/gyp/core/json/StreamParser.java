@@ -1,4 +1,4 @@
-package de.steinberg.gyp.parser.json;
+package de.steinberg.gyp.core.json;
 
 import java.io.InputStream;
 

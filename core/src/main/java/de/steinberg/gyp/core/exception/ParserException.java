@@ -1,4 +1,4 @@
-package de.steinberg.gyp.exception;
+package de.steinberg.gyp.core.exception;
 
 /**
  * Created by LKLeen on 10.12.2014.

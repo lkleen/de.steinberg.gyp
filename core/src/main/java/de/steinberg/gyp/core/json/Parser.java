@@ -1,4 +1,4 @@
-package de.steinberg.gyp.parser.json;
+package de.steinberg.gyp.core.json;
 
 /**
  * Created by LKLeen on 11.12.2014.

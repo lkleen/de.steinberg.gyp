@@ -1,8 +1,8 @@
-package de.steinberg.gyp.parser.json;
+package de.steinberg.gyp.core.json;
 
 import com.google.gson.Gson;
-import de.steinberg.gyp.exception.ParserException;
-import de.steinberg.gyp.model.GypFile;
+import de.steinberg.gyp.core.exception.ParserException;
+import de.steinberg.gyp.core.model.GypFile;
 
 import javax.inject.Inject;
 import java.io.BufferedReader;
