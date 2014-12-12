@@ -3,6 +3,8 @@ package de.steinberg.gyp.core.configuration;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.steinberg.gyp.core.filesystem.FileSystemAccessor;
+import de.steinberg.gyp.core.interpreter.GypFileTreeParser;
+import de.steinberg.gyp.core.interpreter.GypFileInterpreter;
 import de.steinberg.gyp.core.json.GypFileParser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,4 +30,9 @@ public class ApplicationConfiguration {
     @Bean
     public FileSystemAccessor fileSystemAccessor() {return new FileSystemAccessor();}
 
+    @Bean
+    public GypFileInterpreter gypFileInterpreter() {return new GypFileInterpreter();}
+
+    @Bean
+    public GypFileTreeParser gypFileEntryParser() {return new GypFileTreeParser();}
 }

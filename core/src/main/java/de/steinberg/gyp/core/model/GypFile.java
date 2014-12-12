@@ -2,6 +2,7 @@ package de.steinberg.gyp.core.model;
 
 import lombok.Data;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,6 +11,6 @@ import java.util.Map;
 @Data
 public class GypFile {
 
-    Map<String, Object> variables;
+    Map<String, List<String>> variables;
 
 }

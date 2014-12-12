@@ -10,8 +10,12 @@
 		'sequencer_sources': [
 			'<@(sequencer_sources_mac)',
 			'<@(sequencer_sources_win)',
-			'test',
-			'<(ROOT)test',
+			'pi',
+			'pa',
+			'po',
+			'<(ROOT)mi',
+			'<(ROOT)ma',
+			'<(ROOT)mu',
 		],
 		'cubase_common_sources' : [
 			'<@(sequencer_sources)',
