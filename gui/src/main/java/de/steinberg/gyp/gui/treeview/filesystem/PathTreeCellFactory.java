@@ -21,7 +21,6 @@ public class PathTreeCellFactory implements Callback<TreeView<Path>, TreeCell<Pa
 
     @Override
     public TreeCell<Path> call(TreeView<Path> param) {
-        //return new TreeCell<Path>();
         return new PathTreeCell(iconResolver, pathNodeHandler);
     }
 }
