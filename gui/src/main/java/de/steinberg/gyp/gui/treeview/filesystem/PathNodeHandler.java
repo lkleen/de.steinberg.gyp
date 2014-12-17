@@ -35,13 +35,15 @@ public class PathNodeHandler {
         List<TreeItem<Path>> children = new ArrayList<>();
 
         try (Stream<Path> stream = Files.walk(node.getValue(), 1)) {
-                stream.forEach(path -> {
+                stream
+                        .filter(path -> {return !path.equals(node.getValue());} )
+                        .forEach(path -> {
                     TreeItem<Path> child = new TreeItem<Path>(path, iconResolver.getIconFor(path));
                     children.add(child);
                     appendChildrenRecursive(child, maxDepth - 1);
                 });
         } catch (FileSystemException e) {
-            PathNodeHandler.log.error(e.getMessage());
+            PathNodeHandler.log.warn("could not read {}", e.getMessage());
         } catch (IOException e) {
             throw new FileSystemAccessException(e);
         }
