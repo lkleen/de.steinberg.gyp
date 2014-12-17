@@ -1,6 +1,8 @@
 package de.steinberg.gyp.gui.configuration;
 
 import de.steinberg.gyp.gui.controller.Controller;
+import de.steinberg.gyp.gui.icons.IconResolver;
+import de.steinberg.gyp.gui.treeview.filesystem.PathNodeHandler;
 import de.steinberg.gyp.gui.treeview.filesystem.RootNodeCreator;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,16 +21,19 @@ import java.nio.file.FileSystems;
 @Configuration
 public class GuiConfiguration {
 
-    /*
     @Bean
-    public Controller controller() {
-        return new Controller();
+    public IconResolver iconResolver() {
+        return new IconResolver();
     }
-    */
 
     @Bean
     public FileSystem fileSystem () {
         return FileSystems.getDefault();
+    }
+
+    @Bean
+    public PathNodeHandler pathNodeHandler() {
+        return new PathNodeHandler();
     }
 
     @Bean

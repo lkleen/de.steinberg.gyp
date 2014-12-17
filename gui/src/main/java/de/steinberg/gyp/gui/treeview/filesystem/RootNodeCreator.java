@@ -14,10 +14,15 @@ public class RootNodeCreator {
     @Inject
     FileSystem fileSystem;
 
+    @Inject
+    PathNodeHandler pathNodeHandler;
+
     public TreeItem<Path> createRootNodes() {
         TreeItem<Path> root = new TreeItem<>();
         for (Path path : fileSystem.getRootDirectories()) {
-            root.getChildren().add(new TreeItem<>(path));
+            TreeItem<Path> child = new TreeItem<>(path);
+            root.getChildren().add(child);
+            pathNodeHandler.appendChildren(child, 2);
         }
         return root;
     }

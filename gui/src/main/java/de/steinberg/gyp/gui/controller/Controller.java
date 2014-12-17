@@ -39,39 +39,9 @@ public class Controller {
     }
 
     public void postConstruct() throws Exception {
-
-        File rootFile = new File("/");
-
-        FileSystem fs = FileSystems.getDefault();
-
-        Path rootPath = fs.getPath("/");
-
-        BasicFileAttributes attr = Files.readAttributes(rootPath, BasicFileAttributes.class);
-
-        attr.isDirectory();
-
-        fs.provider().readAttributes(rootPath, BasicFileAttributes.class);
-
-        FileSystems.getDefault().supportedFileAttributeViews().forEach(stuff -> {
-            log.info(stuff);
-        });
-
-
-        IconResolver iconResolver = new IconResolver();
-
-        TreeItem<Path> root = new TreeItem<>(rootPath);
-        filesystemTreeView.setRoot(root);
-
-        try (Stream<Path> stream = Files.walk(rootPath, 1)) {
-            stream.forEach(path -> {
-                    TreeItem<Path> child = new TreeItem<>(path, iconResolver.getIconFor(path));
-                    root.getChildren().add(child);
-            });
-        } catch (IOException e) {
-            Controller.log.error(e.getMessage());
-        }
-
+        TreeItem<Path> root = rootNodeCreator.createRootNodes();
         root.setExpanded(true);
+        filesystemTreeView.setRoot(root);
     }
 
     @FXML
