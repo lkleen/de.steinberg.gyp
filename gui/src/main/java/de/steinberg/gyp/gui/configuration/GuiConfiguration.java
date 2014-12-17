@@ -7,6 +7,7 @@ import de.steinberg.gyp.gui.initializer.PathTreeViewInitializer;
 import de.steinberg.gyp.gui.treeview.filesystem.PathNodeHandler;
 import de.steinberg.gyp.gui.treeview.filesystem.PathTreeCellFactory;
 import de.steinberg.gyp.gui.treeview.filesystem.RootNodeCreator;
+import de.steinberg.gyp.gui.treeview.gypfile.GypNodeHandler;
 import de.steinberg.gyp.gui.treeview.gypfile.GypTreeCellFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,9 @@ import java.nio.file.FileSystems;
 public class GuiConfiguration {
 
     @Bean
+    public GypNodeHandler gypNodeHandler() {return new GypNodeHandler();}
+
+    @Bean
     public GypTreeCellFactory gypTreeCellFactory() {return new GypTreeCellFactory();}
 
     @Bean
@@ -37,11 +41,6 @@ public class GuiConfiguration {
     @Bean
     public IconResolver iconResolver() {
         return new IconResolver();
-    }
-
-    @Bean
-    public FileSystem fileSystem () {
-        return FileSystems.getDefault();
     }
 
     @Bean

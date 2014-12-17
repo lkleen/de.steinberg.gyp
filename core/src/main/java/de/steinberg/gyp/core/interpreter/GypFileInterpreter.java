@@ -6,6 +6,7 @@ import de.steinberg.gyp.core.model.GypFileTree;
 import de.steinberg.gyp.core.model.GypFileTreeNode;
 
 import javax.inject.Inject;
+import java.nio.file.FileSystems;
 import java.util.List;
 import java.util.Map;
 
@@ -20,11 +21,13 @@ public class GypFileInterpreter {
     public GypFileTree getFilesListFrom (String base, GypFile gypFile) {
 
         GypFileTree tree = new GypFileTree();
-        GypFileTreeNode root = new GypFileTreeNode();
+        GypFileTreeNode root = new GypFileTreeNode(base);
         tree.setRoot(root);
 
         for (String key : gypFile.getVariables().keySet()) {
-            gypFileTreeParser.parseTree(base, gypFile, key, root);
+            GypFileTreeNode child = new GypFileTreeNode(key);
+            root.getChildren().add(child);
+            gypFileTreeParser.parseTree(base, child, key, gypFile);
         }
 
         return tree;

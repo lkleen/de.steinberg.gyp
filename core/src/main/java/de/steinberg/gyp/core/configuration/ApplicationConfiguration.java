@@ -9,11 +9,17 @@ import de.steinberg.gyp.core.json.GypFileParser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+
 /**
  * Created by LKLeen on 10.12.2014.
  */
 @Configuration
 public class ApplicationConfiguration {
+
+    @Bean
+    public FileSystem fileSystem() {return FileSystems.getDefault();}
 
     @Bean
     public Gson gson() {

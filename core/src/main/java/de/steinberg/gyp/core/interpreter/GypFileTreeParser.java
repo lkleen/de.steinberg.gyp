@@ -3,10 +3,18 @@ package de.steinberg.gyp.core.interpreter;
 import de.steinberg.gyp.core.model.GypFile;
 import de.steinberg.gyp.core.model.GypFileTreeNode;
 
+import javax.inject.Inject;
+import java.nio.file.FileSystem;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by LKLeen on 12.12.2014.
  */
 public class GypFileTreeParser {
+
+    @Inject
+    FileSystem fileSystem;
 
     enum EntryType {
         CurrentPath,
@@ -14,9 +22,8 @@ public class GypFileTreeParser {
         Include,
     }
 
-    public void parseTree(String root, GypFile gypFile, String key, GypFileTreeNode parent) {
-        GypFileTreeNode node = new GypFileTreeNode();
-        parent.getChildren().add(node);
+    public void parseTree(String root, GypFileTreeNode parent, String key, GypFile gypFile) {
+        List<GypFileTreeNode> children = new ArrayList<>();
 
         for (String file : gypFile.getVariables().get(key)) {
             if (file == null)
@@ -24,17 +31,24 @@ public class GypFileTreeParser {
 
             switch (getType(file)) {
                 case CurrentPath:
-                    node.getFileSet().add(file);
+                    children.add(newNode (file));
                     break;
                 case RootPath:
-                    node.getFileSet().add(parseRoot(root, file));
+                    children.add(newNode(parseRoot(root, file)));
                     break;
                 case Include:
-                    parseTree(root, gypFile, parseKey(file), node);
+                    GypFileTreeNode child = newNode (file);
+                    children.add(child);
+                    parseTree(root, child, parseKey(file), gypFile);
                     break;
             }
-
         }
+
+        parent.getChildren().addAll(children);
+    }
+
+    private GypFileTreeNode newNode(String file) {
+        return new GypFileTreeNode(file);
     }
 
     private String parseKey(String file) {

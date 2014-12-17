@@ -3,6 +3,7 @@ package de.steinberg.gyp.core.model;
 import de.steinberg.gyp.core.filesystem.FileSet;
 import lombok.Data;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class GypFileTreeNode {
 
     final List<GypFileTreeNode> children = new ArrayList<>();
-    final FileSet fileSet = new FileSet();
+    final String value;
 
     /**
      * @return all files of this node and its children
@@ -25,10 +26,12 @@ public class GypFileTreeNode {
     }
 
     private void getAllFiles(FileSet result, GypFileTreeNode node, List<GypFileTreeNode> children) {
+        /*
         result.addAll(node.getFileSet());
         for (GypFileTreeNode child : children) {
             getAllFiles(result, child, child.children);
         }
+        */
     }
 
 
