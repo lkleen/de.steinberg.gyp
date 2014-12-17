@@ -20,12 +20,13 @@ public class GypNodeHandler {
     }
 
     private void appendChildrenRecursive(TreeItem<GypFileTreeNode> node) {
-        if (node.getChildren().size() == 0)
+        GypFileTreeNode gypFileTreeNode = node.getValue();
+
+        if (gypFileTreeNode.getChildren().size() == 0)
             return;
 
         List<TreeItem<GypFileTreeNode>> children = new ArrayList<>();
 
-        GypFileTreeNode gypFileTreeNode = node.getValue();
 
         for (GypFileTreeNode treeNode : gypFileTreeNode.getChildren()) {
             TreeItem<GypFileTreeNode> child = new TreeItem<>(treeNode);

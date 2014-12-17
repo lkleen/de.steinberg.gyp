@@ -28,7 +28,7 @@ public class GypTreeCell extends TreeCell<GypFileTreeNode> {
             return;
         }
 
-        setText(item.toString());
+        setText(item.getValue());
 
         gypNodeHandler.appendChildren(getTreeItem());
     }
