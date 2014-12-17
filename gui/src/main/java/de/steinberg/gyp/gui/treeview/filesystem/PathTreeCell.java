@@ -4,6 +4,10 @@ import de.steinberg.gyp.gui.icons.IconResolver;
 import javafx.scene.Parent;
 import javafx.scene.control.Skin;
 import javafx.scene.control.TreeCell;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
@@ -33,7 +37,6 @@ public class PathTreeCell extends TreeCell<Path> {
         }
         setText(item.toString());
         setGraphic(iconResolver.getIconFor(item));
-
         pathNodeHandler.appendChildren(getTreeItem(), 1);
     }
 

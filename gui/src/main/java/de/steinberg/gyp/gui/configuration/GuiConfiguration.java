@@ -1,6 +1,7 @@
 package de.steinberg.gyp.gui.configuration;
 
 import de.steinberg.gyp.gui.icons.IconResolver;
+import de.steinberg.gyp.gui.initializer.PathTreeViewInitializer;
 import de.steinberg.gyp.gui.treeview.filesystem.PathNodeHandler;
 import de.steinberg.gyp.gui.treeview.filesystem.PathTreeCellFactory;
 import de.steinberg.gyp.gui.treeview.filesystem.RootNodeCreator;
@@ -18,6 +19,9 @@ public class GuiConfiguration {
 
     @Bean
     public PathTreeCellFactory pathTreeCellFactory() {return new PathTreeCellFactory();}
+
+    @Bean
+    public PathTreeViewInitializer pathTreeViewInitializer () {return new PathTreeViewInitializer();}
 
     @Bean
     public IconResolver iconResolver() {

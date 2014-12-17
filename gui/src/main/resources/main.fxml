@@ -15,7 +15,7 @@
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button mnemonicParsing="false" text="Button" />
+          <Button mnemonicParsing="false" onAction="#openFileChooser" text="Button" />
             <Label text="Label" />
         </items>
       </ToolBar>
@@ -28,7 +28,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0">
                <children>
-                  <TreeView fx:id="filesystemTreeView" layoutX="173.0" layoutY="95.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TreeView fx:id="pathTreeView" layoutX="173.0" layoutY="95.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </items>
