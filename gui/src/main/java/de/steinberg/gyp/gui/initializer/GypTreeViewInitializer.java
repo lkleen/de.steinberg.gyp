@@ -8,14 +8,14 @@ import de.steinberg.gyp.core.model.GypFileTree;
 import de.steinberg.gyp.core.model.GypNode;
 import de.steinberg.gyp.gui.dialog.FileSelector;
 import de.steinberg.gyp.gui.exception.GypFileParsingException;
+import de.steinberg.gyp.gui.settings.GuiSettings;
+import de.steinberg.gyp.gui.settings.GuiSettingsHandler;
 import de.steinberg.gyp.gui.treeview.gypfile.GypTreeCellFactory;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.stage.FileChooser;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -39,6 +39,9 @@ public class GypTreeViewInitializer {
     @Inject
     FileSelector fileSelector;
 
+    @Inject
+    GuiSettingsHandler guiSettingsHandler;
+
     public void initialize(TreeView<GypNode> treeView) {
         Path path = fileSelector.showOpenDialog();
 
@@ -50,11 +53,17 @@ public class GypTreeViewInitializer {
         if (gypFile == null)
             return;
 
-        GypFileTree gypFileTree = gypFileInterpreter.getFilesListFrom(path.toAbsolutePath().toString(), gypFile);
+        GypFileTree gypFileTree = parseTree(path, gypFile);
+
         TreeItem<GypNode> root = new TreeItem<>(gypFileTree.getRoot());
         treeView.setCellFactory(gypTreeCellFactory);
         treeView.setRoot(root);
 
+    }
+
+    private GypFileTree parseTree(Path path, GypFile gypFile) {
+        GuiSettings settings = guiSettingsHandler.read();
+        return gypFileInterpreter.getFilesTreeFrom(path.toString(), settings.getRootPath(), gypFile);
     }
 
     private GypFile parseFile(Path path) {

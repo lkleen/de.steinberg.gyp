@@ -7,6 +7,7 @@ import de.steinberg.gyp.gui.initializer.GypTreeViewInitializer;
 import de.steinberg.gyp.gui.initializer.PathTreeViewInitializer;
 import de.steinberg.gyp.gui.settings.GuiSettings;
 import de.steinberg.gyp.gui.settings.GuiSettingsHandler;
+import de.steinberg.gyp.gui.settings.SettingsTab;
 import de.steinberg.gyp.gui.treeview.filesystem.PathNodeHandler;
 import de.steinberg.gyp.gui.treeview.filesystem.PathTreeCellFactory;
 import de.steinberg.gyp.gui.treeview.filesystem.RootNodeCreator;
@@ -25,6 +26,9 @@ import java.nio.file.FileSystems;
 @Configuration
 @Import(ApplicationConfiguration.class)
 public class GuiConfiguration {
+
+    @Bean
+    public SettingsTab settingsTab() {return new SettingsTab();}
 
     @Bean
     public FileSelector fileSelector() {return new FileSelector();}

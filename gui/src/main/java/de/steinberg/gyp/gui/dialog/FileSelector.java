@@ -20,9 +20,8 @@ public class FileSelector {
 
     public Path showOpenDialog() {
         GuiSettings settings = guiSettingsHandler.read();
-        FileChooser fs = new FileChooser();
 
-        File selectedFile = openDialog(fs, settings);
+        File selectedFile = openDialog(settings);
 
         if (selectedFile != null && selectedFile.isFile())
         {
@@ -35,28 +34,30 @@ public class FileSelector {
         }
     }
 
-    private File openDialog(FileChooser fs, GuiSettings settings) {
+    private File openDialog(GuiSettings settings) {
+
         File selectedFile;
         File initialDirectory = settings.getInitialDirectory();
         String initialFilename = settings.getInitialFilename();
+        FileChooser fileChooser = new FileChooser();
 
         if (initialDirectory != null && initialDirectory.isDirectory()) {
             File file = new File(initialDirectory.toString()); // why this workaround?
             // because if I do not copy the file here for some reason
             // getCanonicalPath called from FileChooser will fail
             // after loading the settings with gson
-            fs.setInitialDirectory(file);
-            fs.setInitialFileName(initialFilename);
+            fileChooser.setInitialDirectory(file);
+            fileChooser.setInitialFileName(initialFilename);
         }
 
         try {
-            selectedFile = fs.showOpenDialog(null);
+            selectedFile = fileChooser.showOpenDialog(null);
         } catch (Exception e) {
             e.printStackTrace();
             log.warn("could not open filechooser with initial file {}", initialDirectory);
-            fs.setInitialDirectory(null);
-            fs.setInitialFileName(null);
-            selectedFile = fs.showOpenDialog(null);
+            fileChooser.setInitialDirectory(null);
+            fileChooser.setInitialFileName(null);
+            selectedFile = fileChooser.showOpenDialog(null);
         }
         return selectedFile;
     }

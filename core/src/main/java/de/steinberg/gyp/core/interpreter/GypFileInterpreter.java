@@ -15,10 +15,10 @@ public class GypFileInterpreter {
     @Inject
     GypFileTreeParser gypFileTreeParser;
 
-    public GypFileTree getFilesListFrom (String base, GypFile gypFile) {
+    public GypFileTree getFilesTreeFrom(String rootNodeName, String base, GypFile gypFile) {
 
         GypFileTree tree = new GypFileTree();
-        GypNode root = new GypNode(base, GypNodeType.Root);
+        GypNode root = new GypNode(rootNodeName, GypNodeType.Root);
         tree.setRoot(root);
 
         for (String key : gypFile.getVariables().keySet()) {

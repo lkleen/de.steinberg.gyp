@@ -25,7 +25,7 @@ public class GypFileInterpreterTest extends TestBase {
     public void test() {
         GypFile gypFile = parser.parse(ClassLoader.getSystemResourceAsStream("files.gypi"), GypFile.class);
         String base = "some/folder";
-        GypFileTree tree = interpreter.getFilesListFrom(base, gypFile);
+        GypFileTree tree = interpreter.getFilesTreeFrom("files.gypi", base, gypFile);
         assertNotNull(tree);
 
         FileSet fileSet = tree.getRoot().getAllFiles();
