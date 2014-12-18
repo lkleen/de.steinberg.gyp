@@ -1,6 +1,6 @@
 package de.steinberg.gyp.gui.controller;
 
-import de.steinberg.gyp.core.model.GypFileTreeNode;
+import de.steinberg.gyp.core.model.GypNode;
 import de.steinberg.gyp.gui.initializer.GypTreeViewInitializer;
 import de.steinberg.gyp.gui.initializer.PathTreeViewInitializer;
 import javafx.fxml.FXML;
@@ -27,7 +27,7 @@ public class Controller {
     GypTreeViewInitializer gypTreeViewInitializer;
 
     @FXML
-    TreeView<GypFileTreeNode> gypTreeView;
+    TreeView<GypNode> gypTreeView;
 
     @FXML
     Window window;

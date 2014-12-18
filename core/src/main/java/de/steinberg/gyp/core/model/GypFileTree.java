@@ -8,6 +8,6 @@ import lombok.Data;
 @Data
 public class GypFileTree {
 
-    GypFileTreeNode root;
+    GypNode root;
 
 }

@@ -1,9 +1,8 @@
 package de.steinberg.gyp.gui.treeview.gypfile;
 
-import de.steinberg.gyp.core.model.GypFileTreeNode;
+import de.steinberg.gyp.core.model.GypNode;
 import javafx.scene.control.TreeItem;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,24 +11,24 @@ import java.util.List;
  */
 public class GypNodeHandler {
 
-    public void appendChildren(TreeItem<GypFileTreeNode> node) {
+    public void appendChildren(TreeItem<GypNode> node) {
         if (node.getChildren().size() > 0)
             return;;
 
         appendChildrenRecursive (node);
     }
 
-    private void appendChildrenRecursive(TreeItem<GypFileTreeNode> node) {
-        GypFileTreeNode gypFileTreeNode = node.getValue();
+    private void appendChildrenRecursive(TreeItem<GypNode> node) {
+        GypNode gypNode = node.getValue();
 
-        if (gypFileTreeNode.getChildren().size() == 0)
+        if (gypNode.getChildren().size() == 0)
             return;
 
-        List<TreeItem<GypFileTreeNode>> children = new ArrayList<>();
+        List<TreeItem<GypNode>> children = new ArrayList<>();
 
 
-        for (GypFileTreeNode treeNode : gypFileTreeNode.getChildren()) {
-            TreeItem<GypFileTreeNode> child = new TreeItem<>(treeNode);
+        for (GypNode treeNode : gypNode.getChildren()) {
+            TreeItem<GypNode> child = new TreeItem<>(treeNode);
             children.add(child);
             appendChildrenRecursive(child);
         }

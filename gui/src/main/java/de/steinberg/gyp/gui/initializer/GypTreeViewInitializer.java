@@ -4,7 +4,7 @@ import de.steinberg.gyp.core.interpreter.GypFileInterpreter;
 import de.steinberg.gyp.core.json.GypFileParser;
 import de.steinberg.gyp.core.model.GypFile;
 import de.steinberg.gyp.core.model.GypFileTree;
-import de.steinberg.gyp.core.model.GypFileTreeNode;
+import de.steinberg.gyp.core.model.GypNode;
 import de.steinberg.gyp.gui.exception.GypFileParsingException;
 import de.steinberg.gyp.gui.treeview.gypfile.GypTreeCellFactory;
 import javafx.scene.control.TreeItem;
@@ -15,7 +15,6 @@ import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -33,11 +32,11 @@ public class GypTreeViewInitializer {
     @Inject
     GypTreeCellFactory gypTreeCellFactory;
 
-    public void initialize(TreeView<GypFileTreeNode> treeView) {
+    public void initialize(TreeView<GypNode> treeView) {
         Path path = selectFile();
         GypFile gypFile = parseFile(path);
         GypFileTree gypFileTree = gypFileInterpreter.getFilesListFrom(path.toAbsolutePath().toString(), gypFile);
-        TreeItem<GypFileTreeNode> root = new TreeItem<>(gypFileTree.getRoot());
+        TreeItem<GypNode> root = new TreeItem<>(gypFileTree.getRoot());
         treeView.setCellFactory(gypTreeCellFactory);
         treeView.setRoot(root);
 
