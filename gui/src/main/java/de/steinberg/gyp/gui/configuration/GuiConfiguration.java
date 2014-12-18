@@ -1,9 +1,12 @@
 package de.steinberg.gyp.gui.configuration;
 
 import de.steinberg.gyp.core.configuration.ApplicationConfiguration;
+import de.steinberg.gyp.gui.dialog.FileSelector;
 import de.steinberg.gyp.gui.icons.IconResolver;
 import de.steinberg.gyp.gui.initializer.GypTreeViewInitializer;
 import de.steinberg.gyp.gui.initializer.PathTreeViewInitializer;
+import de.steinberg.gyp.gui.settings.GuiSettings;
+import de.steinberg.gyp.gui.settings.GuiSettingsHandler;
 import de.steinberg.gyp.gui.treeview.filesystem.PathNodeHandler;
 import de.steinberg.gyp.gui.treeview.filesystem.PathTreeCellFactory;
 import de.steinberg.gyp.gui.treeview.filesystem.RootNodeCreator;
@@ -22,6 +25,12 @@ import java.nio.file.FileSystems;
 @Configuration
 @Import(ApplicationConfiguration.class)
 public class GuiConfiguration {
+
+    @Bean
+    public FileSelector fileSelector() {return new FileSelector();}
+
+    @Bean
+    public GuiSettingsHandler guiSettingsHandler() {return new GuiSettingsHandler();}
 
     @Bean
     public GypNodeHandler gypNodeHandler() {return new GypNodeHandler();}
