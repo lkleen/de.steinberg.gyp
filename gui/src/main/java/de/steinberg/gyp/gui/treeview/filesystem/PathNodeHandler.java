@@ -21,6 +21,9 @@ public class PathNodeHandler {
     @Inject
     IconResolver iconResolver;
 
+    @Inject
+    FileSystem fileSystem;
+
     public void appendChildren(TreeItem<Path> node, int maxDepth) {
         if (node.getChildren().size() > 0)
             return;;
@@ -43,7 +46,7 @@ public class PathNodeHandler {
                     appendChildrenRecursive(child, maxDepth - 1);
                 });
         } catch (FileSystemException e) {
-            PathNodeHandler.log.warn("could not read {}", e.getMessage());
+            throw new FileSystemAccessException(e);
         } catch (IOException e) {
             throw new FileSystemAccessException(e);
         }

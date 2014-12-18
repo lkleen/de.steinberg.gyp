@@ -1,5 +1,6 @@
 package de.steinberg.gyp.gui.treeview.filesystem;
 
+import de.steinberg.gyp.gui.exception.FileSystemAccessException;
 import de.steinberg.gyp.gui.icons.IconResolver;
 import javafx.scene.Parent;
 import javafx.scene.control.Skin;
@@ -35,9 +36,25 @@ public class PathTreeCell extends TreeCell<Path> {
             setGraphic(null);
             return;
         }
+
+        updateText(item);
+        updateGraphic(item);
+
+        try {
+            pathNodeHandler.appendChildren(getTreeItem(), 1);
+        } catch (FileSystemAccessException e) {
+            setGraphic(iconResolver.getBrokenIcon());
+            log.debug("could not append children {}", e.getMessage());
+        }
+
+    }
+
+    private void updateText(Path item) {
         setText(item.toString());
+    }
+
+    private void updateGraphic(Path item) {
         setGraphic(iconResolver.getIconFor(item));
-        pathNodeHandler.appendChildren(getTreeItem(), 1);
     }
 
 
