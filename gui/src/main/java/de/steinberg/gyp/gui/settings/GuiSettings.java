@@ -9,7 +9,6 @@ import java.io.File;
  */
 @Data
 public class GuiSettings {
-    File initialDirectory;
-    String initialFilename;
+    File initialFile;
     String RootPath;
 }

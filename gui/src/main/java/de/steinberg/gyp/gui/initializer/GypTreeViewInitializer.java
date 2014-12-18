@@ -37,14 +37,9 @@ public class GypTreeViewInitializer {
     GypTreeCellFactory gypTreeCellFactory;
 
     @Inject
-    FileSelector fileSelector;
-
-    @Inject
     GuiSettingsHandler guiSettingsHandler;
 
-    public void initialize(TreeView<GypNode> treeView) {
-        Path path = fileSelector.showOpenDialog();
-
+    public void initialize(TreeView<GypNode> treeView, Path path) {
         if(path == null)
             return;
 

@@ -25,8 +25,7 @@ public class FileSelector {
 
         if (selectedFile != null && selectedFile.isFile())
         {
-            settings.setInitialDirectory(selectedFile.getParentFile());
-            settings.setInitialFilename(selectedFile.getName());
+            settings.setInitialFile(selectedFile);
             guiSettingsHandler.write(settings);
             return selectedFile.toPath();
         } else {
@@ -37,8 +36,11 @@ public class FileSelector {
     private File openDialog(GuiSettings settings) {
 
         File selectedFile;
-        File initialDirectory = settings.getInitialDirectory();
-        String initialFilename = settings.getInitialFilename();
+        File initialFile = settings.getInitialFile();
+
+
+        File initialDirectory = (initialFile != null) ? initialFile.getParentFile() : null;
+        String initialFilename = (initialFile != null) ? initialFile.getName() : null;
         FileChooser fileChooser = new FileChooser();
 
         if (initialDirectory != null && initialDirectory.isDirectory()) {
