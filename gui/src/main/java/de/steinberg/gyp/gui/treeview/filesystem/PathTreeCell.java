@@ -3,6 +3,8 @@ package de.steinberg.gyp.gui.treeview.filesystem;
 import de.steinberg.gyp.gui.exception.FileSystemAccessException;
 import de.steinberg.gyp.gui.icons.IconResolver;
 import javafx.scene.Parent;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
 import javafx.scene.control.TreeCell;
 import javafx.scene.layout.Background;
@@ -21,10 +23,12 @@ public class PathTreeCell extends TreeCell<Path> {
 
     final IconResolver iconResolver;
     final PathNodeHandler pathNodeHandler;
+    final PathTreeCellContextMenuFactory contextMenuFactory;
 
-    public PathTreeCell(IconResolver iconResolver, PathNodeHandler pathNodeHandler) {
+    public PathTreeCell(IconResolver iconResolver, PathNodeHandler pathNodeHandler, PathTreeCellContextMenuFactory contextMenuFactory) {
         this.iconResolver = iconResolver;
         this.pathNodeHandler = pathNodeHandler;
+        this.contextMenuFactory = contextMenuFactory;
     }
 
     @Override
@@ -47,6 +51,7 @@ public class PathTreeCell extends TreeCell<Path> {
             log.debug("could not append children {}", e.getMessage());
         }
 
+        contextMenuFactory.createContextMenu(this);
     }
 
     private void updateText(Path item) {

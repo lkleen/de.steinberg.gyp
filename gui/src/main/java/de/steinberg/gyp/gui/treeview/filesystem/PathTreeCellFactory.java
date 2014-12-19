@@ -19,8 +19,11 @@ public class PathTreeCellFactory implements Callback<TreeView<Path>, TreeCell<Pa
     @Inject
     PathNodeHandler pathNodeHandler;
 
+    @Inject
+    PathTreeCellContextMenuFactory contextMenuFactory;
+
     @Override
     public TreeCell<Path> call(TreeView<Path> param) {
-        return new PathTreeCell(iconResolver, pathNodeHandler);
+        return new PathTreeCell(iconResolver, pathNodeHandler, contextMenuFactory);
     }
 }

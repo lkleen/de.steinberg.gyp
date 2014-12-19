@@ -1,14 +1,17 @@
 package de.steinberg.gyp.gui.configuration;
 
 import de.steinberg.gyp.core.configuration.ApplicationConfiguration;
+import de.steinberg.gyp.gui.FXMLElementsAccessor;
 import de.steinberg.gyp.gui.dialog.FileSelector;
 import de.steinberg.gyp.gui.icons.IconResolver;
 import de.steinberg.gyp.gui.initializer.GypTreeViewInitializer;
 import de.steinberg.gyp.gui.initializer.PathTreeViewInitializer;
-import de.steinberg.gyp.gui.settings.GuiSettings;
+import de.steinberg.gyp.gui.logging.LogAppender;
+import de.steinberg.gyp.gui.logging.LogWriter;
 import de.steinberg.gyp.gui.settings.GuiSettingsHandler;
 import de.steinberg.gyp.gui.settings.SettingsTab;
 import de.steinberg.gyp.gui.treeview.filesystem.PathNodeHandler;
+import de.steinberg.gyp.gui.treeview.filesystem.PathTreeCellContextMenuFactory;
 import de.steinberg.gyp.gui.treeview.filesystem.PathTreeCellFactory;
 import de.steinberg.gyp.gui.treeview.filesystem.RootNodeCreator;
 import de.steinberg.gyp.gui.treeview.gypfile.GypNodeHandler;
@@ -17,15 +20,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-
 /**
  * Created by LKLeen on 17.12.2014.
  */
 @Configuration
 @Import(ApplicationConfiguration.class)
 public class GuiConfiguration {
+
+    @Bean
+    public PathTreeCellContextMenuFactory pathTreeCellContextMenuFactory() {return new PathTreeCellContextMenuFactory();}
+
+    @Bean
+    public FXMLElementsAccessor fxmlElementsAccessor() {return new FXMLElementsAccessor();}
 
     @Bean
     public SettingsTab settingsTab() {return new SettingsTab();}

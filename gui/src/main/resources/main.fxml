@@ -4,13 +4,14 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.steinberg.gyp.gui.controller.Controller">
+<GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.steinberg.gyp.gui.controller.Controller">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints />
-    <RowConstraints vgrow="ALWAYS" />
+    <RowConstraints minHeight="289.0" prefHeight="322.0" valignment="BOTTOM" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="80.0" minHeight="80.0" prefHeight="80.0" valignment="BOTTOM" vgrow="NEVER" />
   </rowConstraints>
    <children>
       <MenuBar prefHeight="21.0" prefWidth="600.0" GridPane.vgrow="NEVER">
@@ -73,5 +74,6 @@
           </Tab>
         </tabs>
       </TabPane>
+      <TextArea fx:id="logOutput" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
    </children>
 </GridPane>
