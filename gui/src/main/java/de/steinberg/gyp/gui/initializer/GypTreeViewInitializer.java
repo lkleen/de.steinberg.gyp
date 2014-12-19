@@ -7,6 +7,7 @@ import de.steinberg.gyp.core.model.GypFile;
 import de.steinberg.gyp.core.model.GypFileTree;
 import de.steinberg.gyp.core.model.GypNode;
 import de.steinberg.gyp.gui.exception.GypFileParsingException;
+import de.steinberg.gyp.gui.exception.GypTreeViewInitializationException;
 import de.steinberg.gyp.gui.settings.GuiSettings;
 import de.steinberg.gyp.gui.settings.GuiSettingsHandler;
 import de.steinberg.gyp.gui.treeview.gypfile.GypTreeCellFactory;
@@ -39,20 +40,26 @@ public class GypTreeViewInitializer {
     GuiSettingsHandler guiSettingsHandler;
 
     public void initialize(TreeView<GypNode> treeView, Path path) {
-        if(path == null)
-            return;
-
-        GypFile gypFile = parseFile(path);
-
-        if (gypFile == null)
-            return;
-
+        GypFile gypFile = parseGypFile(path);
         GypFileTree gypFileTree = parseTree(path, gypFile);
 
         TreeItem<GypNode> root = new TreeItem<>(gypFileTree.getRoot());
         treeView.setCellFactory(gypTreeCellFactory);
         treeView.setRoot(root);
 
+    }
+
+    private GypFile parseGypFile(Path path) {
+        if(path == null)
+            throw new GypTreeViewInitializationException("path == null");
+
+        GypFile gypFile;
+        try {
+            gypFile = parseFile(path);
+        } catch (ParserException e) {
+            throw new GypTreeViewInitializationException(e);
+        }
+        return gypFile;
     }
 
     private GypFileTree parseTree(Path path, GypFile gypFile) {
@@ -65,9 +72,6 @@ public class GypTreeViewInitializer {
             return gypFileParser.parse(is, GypFile.class);
         } catch (IOException e) {
             throw new GypFileParsingException(e);
-        } catch (ParserException e) {
-            log.warn("could not parse {}", path.toString());
-            return null;
         }
     }
 

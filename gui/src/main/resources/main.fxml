@@ -74,6 +74,6 @@
           </Tab>
         </tabs>
       </TabPane>
-      <TextArea fx:id="logOutput" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
+      <TextArea fx:id="logOutput" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
    </children>
 </GridPane>

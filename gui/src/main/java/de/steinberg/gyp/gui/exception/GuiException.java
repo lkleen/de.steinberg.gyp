@@ -9,4 +9,8 @@ public class GuiException extends ApplicationException {
     public GuiException(Throwable cause) {
         super(cause);
     }
+
+    public GuiException(String message) {
+        super(message);
+    }
 }

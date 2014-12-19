@@ -3,6 +3,7 @@ package de.steinberg.gyp.gui.controller;
 import de.steinberg.gyp.core.model.GypNode;
 import de.steinberg.gyp.gui.FXMLElementsAccessor;
 import de.steinberg.gyp.gui.dialog.FileSelector;
+import de.steinberg.gyp.gui.exception.GypTreeViewInitializationException;
 import de.steinberg.gyp.gui.initializer.GypTreeViewInitializer;
 import de.steinberg.gyp.gui.initializer.PathTreeViewInitializer;
 import de.steinberg.gyp.gui.logging.LogAppender;
@@ -24,6 +25,7 @@ import java.nio.file.Path;
 /**
  * Created by LKLeen on 16.12.2014.
  */
+@Slf4j
 public class Controller {
 
     @Inject
@@ -63,15 +65,28 @@ public class Controller {
         fxmlElementsAccessor.setPathTreeView(pathTreeView);
         fxmlElementsAccessor.setLogOutput(logOutput);
 
-        pathTreeViewInitializer.initialize(pathTreeView);
         settingsTab.load(settingsRoot);
-        gypTreeViewInitializer.initialize(gypTreeView, guiSettingsHandler.read().getInitialFile().toPath());
+
+        initializeTrees(gypTreeView, guiSettingsHandler.read().getInitialFile().toPath());
     }
 
     @FXML
     public void openFileChooser() {
         Path path = fileSelector.showOpenDialog();
-        gypTreeViewInitializer.initialize(gypTreeView, path);
+        initializeTrees(gypTreeView, path);
+    }
+
+    private void initializeTrees(TreeView<GypNode> gypTreeView, Path path) {
+        try {
+            gypTreeViewInitializer.initialize(gypTreeView, path);
+            pathTreeViewInitializer.initialize(pathTreeView);
+            log.info("opened {}", path.toString());
+        } catch (GypTreeViewInitializationException e)
+        {
+            log.warn("could not load {} {}", path.toString(), e.getMessage());
+            gypTreeView.setRoot(null);
+            pathTreeViewInitializer.initialize(pathTreeView);
+        }
     }
 
     @FXML
