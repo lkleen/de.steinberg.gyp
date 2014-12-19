@@ -6,6 +6,8 @@ import de.steinberg.gyp.core.model.GypNodeType;
 
 import javax.inject.Inject;
 import java.nio.file.FileSystem;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,26 +21,30 @@ public class GypFileTreeParser {
     @Inject
     FileSystem fileSystem;
 
-    public void parseTree(String root, GypNode parent, String key, GypFile gypFile) {
+    public void parseTree(Path gypFilePath, String root, GypNode parent, String key, GypFile gypFile) {
         List<GypNode> children = new ArrayList<>();
 
-        for (String file : gypFile.getVariables().get(key)) {
-            if (file == null)
+        Path baseDir = gypFilePath.getParent().normalize();
+        Path rootDir = Paths.get(baseDir.toString(), root).normalize();
+
+        for (String entry : gypFile.getVariables().get(key)) {
+            if (entry == null)
                 continue;
 
-            GypNodeType type = getType(file);
+            GypNodeType type = getType(entry);
 
             switch (type) {
                 case CurrentPath:
-                    children.add(newNode (file, type));
+                    Path path = Paths.get(baseDir.toString(), entry);
+                    children.add(newNode(path.toString(),type));
                     break;
                 case RootPath:
-                    children.add(newNode(parseRoot(root, file), type));
+                    children.add(newNode(parseRoot(rootDir, entry), type));
                     break;
                 case Include:
-                    GypNode child = newNode (file, type);
+                    GypNode child = newNode (entry, type);
                     children.add(child);
-                    parseTree(root, child, parseKey(file), gypFile);
+                    parseTree(gypFilePath, root, child, parseKey(entry), gypFile);
                     break;
             }
         }
@@ -54,7 +60,7 @@ public class GypFileTreeParser {
         return file.replace("<@(","").replace(")","");
     }
 
-    private String parseRoot(String root, String file) {
+    private String parseRoot(Path root, String file) {
         return root + file.replace("<(ROOT)","");
     }
 

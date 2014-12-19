@@ -9,6 +9,9 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 import javax.inject.Inject;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Created by LKLeen on 12.12.2014.
@@ -24,8 +27,9 @@ public class GypFileInterpreterTest extends TestBase {
     @Test
     public void test() {
         GypFile gypFile = parser.parse(ClassLoader.getSystemResourceAsStream("files.gypi"), GypFile.class);
+        Path path = FileSystems.getDefault().getPath("files.gypi");
         String base = "some/folder";
-        GypFileTree tree = interpreter.getFilesTreeFrom("files.gypi", base, gypFile);
+        GypFileTree tree = interpreter.getFileTreeFrom(path, base, gypFile);
         assertNotNull(tree);
 
         FileSet fileSet = tree.getRoot().getAllFiles();

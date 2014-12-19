@@ -4,6 +4,7 @@ import de.steinberg.gyp.core.model.GypNode;
 import de.steinberg.gyp.gui.dialog.FileSelector;
 import de.steinberg.gyp.gui.initializer.GypTreeViewInitializer;
 import de.steinberg.gyp.gui.initializer.PathTreeViewInitializer;
+import de.steinberg.gyp.gui.settings.GuiSettingsHandler;
 import de.steinberg.gyp.gui.settings.SettingsTab;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -42,10 +43,13 @@ public class Controller {
     @Inject
     FileSelector fileSelector;
 
+    @Inject
+    GuiSettingsHandler guiSettingsHandler;
+
     public void postConstruct() throws Exception {
         pathTreeViewInitializer.initialize(pathTreeView);
         settingsTab.load(settingsRoot);
-
+        gypTreeViewInitializer.initialize(gypTreeView, guiSettingsHandler.read().getInitialFile().toPath());
     }
 
     @FXML

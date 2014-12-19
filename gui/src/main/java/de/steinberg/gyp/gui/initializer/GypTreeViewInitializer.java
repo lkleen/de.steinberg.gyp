@@ -6,7 +6,6 @@ import de.steinberg.gyp.core.json.GypFileParser;
 import de.steinberg.gyp.core.model.GypFile;
 import de.steinberg.gyp.core.model.GypFileTree;
 import de.steinberg.gyp.core.model.GypNode;
-import de.steinberg.gyp.gui.dialog.FileSelector;
 import de.steinberg.gyp.gui.exception.GypFileParsingException;
 import de.steinberg.gyp.gui.settings.GuiSettings;
 import de.steinberg.gyp.gui.settings.GuiSettingsHandler;
@@ -58,7 +57,7 @@ public class GypTreeViewInitializer {
 
     private GypFileTree parseTree(Path path, GypFile gypFile) {
         GuiSettings settings = guiSettingsHandler.read();
-        return gypFileInterpreter.getFilesTreeFrom(path.toString(), settings.getRootPath(), gypFile);
+        return gypFileInterpreter.getFileTreeFrom(path, settings.getRootPath(), gypFile);
     }
 
     private GypFile parseFile(Path path) {

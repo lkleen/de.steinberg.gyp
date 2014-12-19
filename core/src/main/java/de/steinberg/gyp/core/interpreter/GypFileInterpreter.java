@@ -6,6 +6,7 @@ import de.steinberg.gyp.core.model.GypNode;
 import de.steinberg.gyp.core.model.GypNodeType;
 
 import javax.inject.Inject;
+import java.nio.file.Path;
 
 /**
  * Created by LKLeen on 12.12.2014.
@@ -15,16 +16,16 @@ public class GypFileInterpreter {
     @Inject
     GypFileTreeParser gypFileTreeParser;
 
-    public GypFileTree getFilesTreeFrom(String rootNodeName, String base, GypFile gypFile) {
+    public GypFileTree getFileTreeFrom(Path gypFilePath, String base, GypFile gypFile) {
 
         GypFileTree tree = new GypFileTree();
-        GypNode root = new GypNode(rootNodeName, GypNodeType.Root);
+        GypNode root = new GypNode(gypFilePath.toString(), GypNodeType.Root);
         tree.setRoot(root);
 
         for (String key : gypFile.getVariables().keySet()) {
             GypNode child = new GypNode(key, findNodeType(key));
             root.getChildren().add(child);
-            gypFileTreeParser.parseTree(base, child, key, gypFile);
+            gypFileTreeParser.parseTree(gypFilePath, base, child, key, gypFile);
         }
 
         return tree;
