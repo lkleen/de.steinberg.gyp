@@ -16,6 +16,15 @@ import de.steinberg.gyp.gui.treeview.filesystem.PathTreeCellFactory;
 import de.steinberg.gyp.gui.treeview.filesystem.RootNodeCreator;
 import de.steinberg.gyp.gui.treeview.gypfile.GypNodeHandler;
 import de.steinberg.gyp.gui.treeview.gypfile.GypTreeCellFactory;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.css.StyleableObjectProperty;
+import javafx.scene.layout.Background;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -26,6 +35,9 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import(ApplicationConfiguration.class)
 public class GuiConfiguration {
+
+    @Bean
+    public FloatProperty floatProperty() {return new SimpleFloatProperty(1F);}
 
     @Bean
     public PathTreeCellContextMenuFactory pathTreeCellContextMenuFactory() {return new PathTreeCellContextMenuFactory();}

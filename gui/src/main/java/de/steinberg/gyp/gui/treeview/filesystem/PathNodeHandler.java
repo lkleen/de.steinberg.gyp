@@ -24,24 +24,24 @@ public class PathNodeHandler {
     @Inject
     FileSystem fileSystem;
 
-    public void appendChildren(TreeItem<Path> node, int maxDepth) {
+    public void appendChildren(TreeItem<PathView> node, int maxDepth) {
         if (node.getChildren().size() > 0)
             return;;
 
         appendChildrenRecursive (node, maxDepth);
     }
 
-    private void appendChildrenRecursive(TreeItem<Path> node, int maxDepth) {
+    private void appendChildrenRecursive(TreeItem<PathView> node, int maxDepth) {
         if (maxDepth == 0)
             return;
 
-        List<TreeItem<Path>> children = new ArrayList<>();
+        List<TreeItem<PathView>> children = new ArrayList<>();
 
-        try (Stream<Path> stream = Files.walk(node.getValue(), 1)) {
+        try (Stream<Path> stream = Files.walk(node.getValue().getPath(), 1)) {
                 stream
                         .filter(path -> {return !path.equals(node.getValue());} )
                         .forEach(path -> {
-                    TreeItem<Path> child = new TreeItem<Path>(path, iconResolver.getIconFor(path));
+                    TreeItem<PathView> child = new TreeItem<>(new PathView(path), iconResolver.getIconFor(path));
                     children.add(child);
                     appendChildrenRecursive(child, maxDepth - 1);
                 });

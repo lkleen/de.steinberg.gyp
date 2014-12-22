@@ -3,8 +3,6 @@ package de.steinberg.gyp.gui.treeview.filesystem;
 import de.steinberg.gyp.core.model.GypNode;
 import de.steinberg.gyp.gui.FXMLElementsAccessor;
 import de.steinberg.gyp.gui.treeview.ContextMenuFactory;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,27 +26,23 @@ public class PathTreeCellContextMenuFactory implements ContextMenuFactory {
             return;
 
         ContextMenu contextMenu = new ContextMenu();
-        Menu submenu = new Menu("compare to");
-        addComparableItems (submenu, root);
+        Menu submenu = createSubmenu(root, treeCell.getTreeItem());
         contextMenu.getItems().add(submenu);
         treeCell.setContextMenu(contextMenu);
     }
 
-    private void addComparableItems(Menu submenu, TreeItem<GypNode> root) {
-        for( TreeItem<GypNode> node : root.getChildren()) {
-            MenuItem menuItem = new MenuItem(node.getValue().getValue());
-            addActionHandler(menuItem);
-            submenu.getItems().add(menuItem);
-        }
+    private Menu createSubmenu(TreeItem<GypNode> root, TreeItem<PathView> pathNode) {
+        Menu menu = new Menu("compare");
 
+        for( TreeItem<GypNode> gypNode : root.getChildren()) {
+            MenuItem menuItem = new MenuItem(gypNode.getValue().getValue());
+            addActionHandler(menuItem, gypNode.getValue(), pathNode.getValue());
+            menu.getItems().add(menuItem);
+        }
+        return menu;
     }
 
-    private void addActionHandler(MenuItem menuItem) {
-        menuItem.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                log.info(event.toString());
-            }
-        });
+    private void addActionHandler(MenuItem menuItem, GypNode gypNode, PathView pathView) {
+        menuItem.setOnAction(new PathViewComparisonEventHandler(gypNode, pathView));
     }
 }

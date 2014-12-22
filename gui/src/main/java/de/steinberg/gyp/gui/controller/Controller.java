@@ -10,12 +10,12 @@ import de.steinberg.gyp.gui.logging.LogAppender;
 import de.steinberg.gyp.gui.logging.LogWriter;
 import de.steinberg.gyp.gui.settings.GuiSettingsHandler;
 import de.steinberg.gyp.gui.settings.SettingsTab;
+import de.steinberg.gyp.gui.treeview.filesystem.PathView;
+import javafx.beans.property.FloatProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
-import javafx.scene.text.Text;
-import javafx.stage.Window;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 
@@ -32,7 +32,7 @@ public class Controller {
     PathTreeViewInitializer pathTreeViewInitializer;
 
     @FXML
-    TreeView<Path> pathTreeView;
+    TreeView<PathView> pathTreeView;
 
     @Inject
     GypTreeViewInitializer gypTreeViewInitializer;
@@ -81,8 +81,7 @@ public class Controller {
             gypTreeViewInitializer.initialize(gypTreeView, path);
             pathTreeViewInitializer.initialize(pathTreeView);
             log.info("opened {}", path.toString());
-        } catch (GypTreeViewInitializationException e)
-        {
+        } catch (GypTreeViewInitializationException e) {
             log.warn("could not load {} {}", path.toString(), e.getMessage());
             gypTreeView.setRoot(null);
             pathTreeViewInitializer.initialize(pathTreeView);
@@ -92,6 +91,17 @@ public class Controller {
     @FXML
     public void saveSettings() {
         settingsTab.save(settingsRoot);
+    }
+
+    @Inject
+    FloatProperty floatProperty;
+    float counter = 1F;
+
+    @FXML
+    public void clearLog() {
+        logOutput.setText("");
+        counter += 10;
+        floatProperty.set(counter);
     }
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -22,6 +23,11 @@
               <MenuItem mnemonicParsing="false" text="Quit" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Log">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#clearLog" text="Clear" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="1">
@@ -74,6 +80,9 @@
           </Tab>
         </tabs>
       </TabPane>
-      <TextArea fx:id="logOutput" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
+      <TextArea fx:id="logOutput" cache="true" cacheHint="SPEED" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
+         <font>
+            <Font name="Courier New" size="10.0" />
+         </font></TextArea>
    </children>
 </GridPane>

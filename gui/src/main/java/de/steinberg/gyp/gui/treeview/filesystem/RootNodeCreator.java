@@ -16,10 +16,10 @@ public class RootNodeCreator {
     @Inject
     FileSystem fileSystem;
 
-    public TreeItem<Path> createRootNodes() {
-        TreeItem<Path> root = new TreeItem<>(null, new ComputerIconView());
+    public TreeItem<PathView> createRootNodes() {
+        TreeItem<PathView> root = new TreeItem<>(null, new ComputerIconView());
         for (Path path : fileSystem.getRootDirectories()) {
-            TreeItem<Path> child = new TreeItem<>(path, new FolderIconView ());
+            TreeItem<PathView> child = new TreeItem<>(new PathView(path), new FolderIconView ());
             root.getChildren().add(child);
         }
         return root;
