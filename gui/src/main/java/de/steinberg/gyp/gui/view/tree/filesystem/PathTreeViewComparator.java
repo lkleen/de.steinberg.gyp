@@ -1,64 +1,52 @@
 package de.steinberg.gyp.gui.view.tree.filesystem;
 
-import de.steinberg.gyp.core.model.GypNode;
-import de.steinberg.gyp.core.model.GypNodeType;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
+import de.steinberg.gyp.core.filesystem.FileSet;
+import de.steinberg.gyp.core.filesystem.FileSetComparator;
+import de.steinberg.gyp.core.filesystem.FileSetComparisonResult;
+import de.steinberg.gyp.core.filesystem.FileSystemAccessor;
+import de.steinberg.gyp.gui.view.result.ComparisonResultView;
+import lombok.Data;
+import lombok.Setter;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import javax.inject.Inject;
 import java.util.concurrent.Callable;
-
-import static de.steinberg.gyp.core.model.GypNodeType.*;
 
 /**
  * Created by LKLeen on 19.12.2014.
  */
-public class PathTreeViewComparator implements Callable<Void> {
+public class PathTreeViewComparator implements Callable<PathTreeViewComparator.Result> {
 
-    final TreeCell<GypNode> gypNodeTreeCell;
-    final TreeCell<Path> pathTreeCell;
+    @Data
+    public class Result {
+        final FileSet filesMissingInFilesystem;
+        final FileSet filesMissingInConfiguration;
 
-    public PathTreeViewComparator(TreeCell<GypNode> gypNodeTreeCell, TreeCell<Path> pathTreeCell) {
-        this.gypNodeTreeCell = gypNodeTreeCell;
-        this.pathTreeCell = pathTreeCell;
+        public Result(FileSet filesMissingInFilesystem, FileSet filesMissingInConfiguration) {
+            this.filesMissingInFilesystem = filesMissingInFilesystem;
+            this.filesMissingInConfiguration = filesMissingInConfiguration;
+        }
     }
+
+    @Inject
+    FileSystemAccessor fileSystemAccessor;
+
+    @Inject
+    FileSetComparator fileSetComparator;
+
+    @Inject
+    ComparisonResultView resultView;
+
+    @Setter
+    PathComparisonParameters parameters;
 
     @Override
-    public Void call() throws Exception {
-        compareGypToPath(gypNodeTreeCell, pathTreeCell);
-        return null;
+    public Result call() throws Exception {
+        FileSet filesInFileSystem = fileSystemAccessor.getFilesFrom(parameters.getPath());
+        FileSet filesInGypNode = parameters.getGypNode().getAllFiles();
+        FileSetComparisonResult filesetResult = fileSetComparator.compare(filesInFileSystem, filesInGypNode);
+        Result result = new Result(filesetResult.missingLeft, filesetResult.missingRight);
+        resultView.print(result);
+        return result;
     }
 
-    private void compareGypToPath(TreeCell<GypNode> gypNodeTreeCell, TreeCell<Path> pathTreeCell) {
-        /*
-        boolean exists = compare(gypNodeTreeCell, pathTreeCell);
-
-        pathTreeCell.
-
-        if (exists) {
-            // mark green
-            return;
-        }
-
-
-        for (TreeItem<Path> child : pathTreeCell.getTreeItem().getChildren()) {
-            compareGypToPath(gypNodeTreeCell, child);
-        }
-
-        // mark red
-        */
-    }
-
-    private boolean compare(TreeItem<GypNode> gypNodeTreeItem, TreeItem<Path> pathTreeItem) {
-        GypNode gypNode = gypNodeTreeItem.getValue();
-        GypNodeType type = gypNode.getType();
-
-        if (type == CurrentPath || type == RootPath) {
-            Path path = Paths.get(gypNode.getValue());
-            return path.equals(pathTreeItem.getValue());
-        } else {
-            return false;
-        }
-    }
 }

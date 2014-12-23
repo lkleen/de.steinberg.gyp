@@ -14,4 +14,5 @@ public class FXMLElementsAccessor {
     TreeView<GypNode> gypTreeView;
     TreeView<PathView> pathTreeView;
     TextArea logOutput;
+    TextArea comparisonResult;
 }

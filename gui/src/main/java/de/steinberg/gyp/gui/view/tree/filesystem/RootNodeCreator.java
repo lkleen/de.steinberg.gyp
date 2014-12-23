@@ -2,8 +2,6 @@ package de.steinberg.gyp.gui.view.tree.filesystem;
 
 import de.steinberg.gyp.gui.icons.ComputerIconView;
 import de.steinberg.gyp.gui.icons.FolderIconView;
-import de.steinberg.gyp.gui.view.tree.layout.TreeCellLayoutHandler;
-import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 
 import javax.inject.Inject;
@@ -18,13 +16,10 @@ public class RootNodeCreator {
     @Inject
     FileSystem fileSystem;
 
-    @Inject
-    TreeCellLayoutHandler layoutHandler;
-
     public TreeItem<PathView> createRootNodes() {
         TreeItem<PathView> root = new TreeItem<>(null, new ComputerIconView());
         for (Path path : fileSystem.getRootDirectories()) {
-            TreeItem<PathView> child = new TreeItem<>(new PathView(path, layoutHandler), new FolderIconView ());
+            TreeItem<PathView> child = new TreeItem<>(new PathView(path), new FolderIconView ());
             root.getChildren().add(child);
         }
         return root;

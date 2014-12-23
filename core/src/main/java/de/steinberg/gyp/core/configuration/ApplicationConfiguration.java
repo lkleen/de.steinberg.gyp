@@ -2,6 +2,7 @@ package de.steinberg.gyp.core.configuration;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import de.steinberg.gyp.core.filesystem.FileSetComparator;
 import de.steinberg.gyp.core.filesystem.FileSystemAccessor;
 import de.steinberg.gyp.core.interpreter.GypFileTreeParser;
 import de.steinberg.gyp.core.interpreter.GypFileInterpreter;
@@ -17,6 +18,9 @@ import java.nio.file.FileSystems;
  */
 @Configuration
 public class ApplicationConfiguration {
+
+    @Bean
+    public FileSetComparator fileSetComparator() {return new FileSetComparator();}
 
     @Bean
     public FileSystem fileSystem() {return FileSystems.getDefault();}

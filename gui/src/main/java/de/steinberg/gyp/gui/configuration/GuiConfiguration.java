@@ -8,18 +8,15 @@ import de.steinberg.gyp.gui.initializer.GypTreeViewInitializer;
 import de.steinberg.gyp.gui.initializer.PathTreeViewInitializer;
 import de.steinberg.gyp.gui.settings.GuiSettingsHandler;
 import de.steinberg.gyp.gui.settings.SettingsTab;
-import de.steinberg.gyp.gui.view.tree.filesystem.PathNodeHandler;
-import de.steinberg.gyp.gui.view.tree.filesystem.PathTreeCellContextMenuFactory;
-import de.steinberg.gyp.gui.view.tree.filesystem.PathTreeCellFactory;
-import de.steinberg.gyp.gui.view.tree.filesystem.RootNodeCreator;
+import de.steinberg.gyp.gui.view.result.ComparisonResultView;
+import de.steinberg.gyp.gui.view.tree.filesystem.*;
 import de.steinberg.gyp.gui.view.tree.gypfile.GypNodeHandler;
 import de.steinberg.gyp.gui.view.tree.gypfile.GypTreeCellFactory;
-import de.steinberg.gyp.gui.view.tree.layout.TreeCellLayoutHandler;
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.SimpleFloatProperty;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Scope;
 
 /**
  * Created by LKLeen on 17.12.2014.
@@ -29,13 +26,19 @@ import org.springframework.context.annotation.Import;
 public class GuiConfiguration {
 
     @Bean
-    public TreeCellLayoutHandler treeCellLayoutHandler() {return new TreeCellLayoutHandler();}
+    public ComparisonResultView comparisonResultView() {return new ComparisonResultView();}
 
     @Bean
-    public FloatProperty floatProperty() {return new SimpleFloatProperty(1F);}
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public PathTreeViewComparator pathTreeViewComparator() {return new PathTreeViewComparator();}
 
     @Bean
-    public PathTreeCellContextMenuFactory pathTreeCellContextMenuFactory() {return new PathTreeCellContextMenuFactory();}
+    public PathTreeCellContextMenuFactory pathTreeCellContextMenuFactory() {return new PathTreeCellContextMenuFactory() {
+        @Override
+        protected PathTreeViewComparator createComparator() {
+            return pathTreeViewComparator();
+        }
+    };}
 
     @Bean
     public FXMLElementsAccessor fxmlElementsAccessor() {return new FXMLElementsAccessor();}

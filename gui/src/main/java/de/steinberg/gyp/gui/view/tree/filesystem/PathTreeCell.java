@@ -4,9 +4,6 @@ import de.steinberg.gyp.gui.exception.FileSystemAccessException;
 import de.steinberg.gyp.gui.icons.IconResolver;
 import javafx.beans.property.FloatProperty;
 import javafx.scene.control.TreeCell;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -19,9 +16,8 @@ public class PathTreeCell extends TreeCell<PathView> {
     final PathNodeHandler pathNodeHandler;
     final PathTreeCellContextMenuFactory contextMenuFactory;
 
-    Background defaultBackGround;
 
-    public PathTreeCell(IconResolver iconResolver, PathNodeHandler pathNodeHandler, PathTreeCellContextMenuFactory contextMenuFactory, FloatProperty other) {
+    public PathTreeCell(IconResolver iconResolver, PathNodeHandler pathNodeHandler, PathTreeCellContextMenuFactory contextMenuFactory) {
         this.iconResolver = iconResolver;
         this.pathNodeHandler = pathNodeHandler;
         this.contextMenuFactory = contextMenuFactory;
@@ -37,9 +33,6 @@ public class PathTreeCell extends TreeCell<PathView> {
             return;
         }
 
-        //setBackground(null);
-        item.addChangeListener(this);
-
         updateText(item);
         updateGraphic(item);
 
@@ -51,27 +44,6 @@ public class PathTreeCell extends TreeCell<PathView> {
         }
 
         contextMenuFactory.createContextMenu(this);
-    }
-
-
-
-    public void updateBackground(float correlationValue) {
-        if(correlationValue >= 1)
-            setBackground(red());
-        else
-            setBackground(green());
-    }
-
-    private Background red() {
-        return new Background(new BackgroundFill(Color.rgb(100, 0, 0), null, null));
-    }
-
-    private Background green() {
-        return new Background(new BackgroundFill(Color.rgb(0, 100, 0), null, null));
-    }
-
-    private Background white() {
-        return new Background(new BackgroundFill(Color.rgb(255, 255, 255), null, null));
     }
 
     private void updateText(PathView item) {

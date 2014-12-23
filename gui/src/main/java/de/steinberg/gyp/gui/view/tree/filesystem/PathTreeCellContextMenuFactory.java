@@ -7,15 +7,18 @@ import javafx.scene.control.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
+import java.nio.file.Path;
 
 /**
  * Created by LKLeen on 19.12.2014.
  */
 @Slf4j
-public class PathTreeCellContextMenuFactory implements ContextMenuFactory {
+public abstract class PathTreeCellContextMenuFactory implements ContextMenuFactory {
 
     @Inject
     FXMLElementsAccessor fxmlElementsAccessor;
+
+    protected abstract PathTreeViewComparator createComparator();
 
     @Override
     public void createContextMenu(TreeCell treeCell) {
@@ -36,13 +39,16 @@ public class PathTreeCellContextMenuFactory implements ContextMenuFactory {
 
         for( TreeItem<GypNode> gypNode : root.getChildren()) {
             MenuItem menuItem = new MenuItem(gypNode.getValue().getValue());
-            addActionHandler(menuItem, gypNode.getValue(), pathNode.getValue());
+            addActionHandler(menuItem, gypNode.getValue(), pathNode.getValue().getPath());
             menu.getItems().add(menuItem);
         }
         return menu;
     }
 
-    private void addActionHandler(MenuItem menuItem, GypNode gypNode, PathView pathView) {
-        menuItem.setOnAction(new PathViewComparisonEventHandler(gypNode, pathView));
+    private void addActionHandler(MenuItem menuItem, GypNode gypNode, Path path) {
+        PathTreeViewComparator comparator = createComparator();
+        comparator.setParameters(new PathComparisonParameters(gypNode, path));
+        PathComparisonEventHandler eventHandler = new PathComparisonEventHandler(comparator);
+        menuItem.setOnAction(eventHandler);
     }
 }

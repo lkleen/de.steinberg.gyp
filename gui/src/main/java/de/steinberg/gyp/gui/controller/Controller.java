@@ -58,12 +58,16 @@ public class Controller {
     @FXML
     TextArea logOutput;
 
+    @FXML
+    TextArea comparisonResult;
+
     public void postConstruct() throws Exception {
         Logger.getLogger("de.steinberg").addAppender(new LogAppender(new LogWriter(logOutput)));
 
         fxmlElementsAccessor.setGypTreeView(gypTreeView);
         fxmlElementsAccessor.setPathTreeView(pathTreeView);
         fxmlElementsAccessor.setLogOutput(logOutput);
+        fxmlElementsAccessor.setComparisonResult(comparisonResult);
 
         settingsTab.load(settingsRoot);
 
@@ -93,15 +97,9 @@ public class Controller {
         settingsTab.save(settingsRoot);
     }
 
-    @Inject
-    FloatProperty floatProperty;
-    float counter = 1F;
-
     @FXML
     public void clearLog() {
         logOutput.setText("");
-        counter += 10;
-        floatProperty.set(counter);
     }
 
 }

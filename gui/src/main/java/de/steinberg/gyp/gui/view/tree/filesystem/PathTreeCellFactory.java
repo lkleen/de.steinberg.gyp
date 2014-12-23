@@ -1,7 +1,6 @@
 package de.steinberg.gyp.gui.view.tree.filesystem;
 
 import de.steinberg.gyp.gui.icons.IconResolver;
-import javafx.beans.property.FloatProperty;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
 import javafx.util.Callback;
@@ -22,11 +21,8 @@ public class PathTreeCellFactory implements Callback<TreeView<PathView>, TreeCel
     @Inject
     PathTreeCellContextMenuFactory contextMenuFactory;
 
-    @Inject
-    FloatProperty floatProperty;
-
     @Override
     public TreeCell<PathView> call(TreeView<PathView> param) {
-        return new PathTreeCell(iconResolver, pathNodeHandler, contextMenuFactory, floatProperty);
+        return new PathTreeCell(iconResolver, pathNodeHandler, contextMenuFactory);
     }
 }
