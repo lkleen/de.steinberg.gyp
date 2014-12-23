@@ -40,7 +40,7 @@ public class PathNodeHandler {
 
         try (Stream<Path> stream = Files.walk(node.getValue().getPath(), 1)) {
                 stream
-                        .filter(path -> {return !path.equals(node.getValue());} )
+                        .filter(path -> {return !path.equals(node.getValue().getPath());} )
                         .forEach(path -> {
                     TreeItem<PathView> child = new TreeItem<>(new PathView(path), iconResolver.getIconFor(path));
                     children.add(child);

@@ -18,13 +18,12 @@ import static de.steinberg.gyp.core.model.GypNodeType.*;
  */
 public class GypFileTreeParser {
 
-    @Inject
-    FileSystem fileSystem;
-
     public void parseTree(Path gypFilePath, String root, GypNode parent, String key, GypFile gypFile) {
         List<GypNode> children = new ArrayList<>();
 
-        Path baseDir = gypFilePath.getParent().normalize();
+        Path parentDir = gypFilePath.getParent();
+
+        Path baseDir = (parentDir != null) ? parentDir.normalize() : Paths.get(".");
         Path rootDir = Paths.get(baseDir.toString(), root).normalize();
 
         for (String entry : gypFile.getVariables().get(key)) {
