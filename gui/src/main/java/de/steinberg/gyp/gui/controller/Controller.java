@@ -10,7 +10,7 @@ import de.steinberg.gyp.gui.logging.LogAppender;
 import de.steinberg.gyp.gui.logging.LogWriter;
 import de.steinberg.gyp.gui.settings.GuiSettingsHandler;
 import de.steinberg.gyp.gui.settings.SettingsTab;
-import de.steinberg.gyp.gui.treeview.filesystem.PathView;
+import de.steinberg.gyp.gui.view.tree.filesystem.PathView;
 import javafx.beans.property.FloatProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;

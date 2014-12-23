@@ -1,7 +1,8 @@
-package de.steinberg.gyp.gui.treeview.filesystem;
+package de.steinberg.gyp.gui.view.tree.filesystem;
 
 import de.steinberg.gyp.gui.exception.FileSystemAccessException;
 import de.steinberg.gyp.gui.icons.IconResolver;
+import de.steinberg.gyp.gui.view.tree.layout.TreeCellLayoutHandler;
 import javafx.scene.control.TreeItem;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +25,9 @@ public class PathNodeHandler {
     @Inject
     FileSystem fileSystem;
 
+    @Inject
+    TreeCellLayoutHandler layoutHandler;
+
     public void appendChildren(TreeItem<PathView> node, int maxDepth) {
         if (node.getChildren().size() > 0)
             return;;
@@ -41,7 +45,7 @@ public class PathNodeHandler {
                 stream
                         .filter(path -> {return !path.equals(node.getValue());} )
                         .forEach(path -> {
-                    TreeItem<PathView> child = new TreeItem<>(new PathView(path), iconResolver.getIconFor(path));
+                    TreeItem<PathView> child = new TreeItem<>(new PathView(path, layoutHandler), iconResolver.getIconFor(path));
                     children.add(child);
                     appendChildrenRecursive(child, maxDepth - 1);
                 });

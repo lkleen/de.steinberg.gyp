@@ -1,8 +1,8 @@
 package de.steinberg.gyp.gui.initializer;
 
-import de.steinberg.gyp.gui.treeview.filesystem.PathTreeCellFactory;
-import de.steinberg.gyp.gui.treeview.filesystem.PathView;
-import de.steinberg.gyp.gui.treeview.filesystem.RootNodeCreator;
+import de.steinberg.gyp.gui.view.tree.filesystem.PathTreeCellFactory;
+import de.steinberg.gyp.gui.view.tree.filesystem.PathView;
+import de.steinberg.gyp.gui.view.tree.filesystem.RootNodeCreator;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 

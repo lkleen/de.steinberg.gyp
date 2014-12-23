@@ -1,12 +1,9 @@
-package de.steinberg.gyp.gui.treeview.filesystem;
+package de.steinberg.gyp.gui.view.tree.filesystem;
 
 import de.steinberg.gyp.core.model.GypNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.TreeItem;
 import lombok.extern.slf4j.Slf4j;
-
-import java.nio.file.Path;
 
 /**
  * Created by LKLeen on 19.12.2014.

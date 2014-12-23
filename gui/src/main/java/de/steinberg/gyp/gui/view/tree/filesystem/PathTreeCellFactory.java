@@ -1,16 +1,12 @@
-package de.steinberg.gyp.gui.treeview.filesystem;
+package de.steinberg.gyp.gui.view.tree.filesystem;
 
 import de.steinberg.gyp.gui.icons.IconResolver;
 import javafx.beans.property.FloatProperty;
-import javafx.beans.property.Property;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
-import javafx.scene.layout.Background;
 import javafx.util.Callback;
 
 import javax.inject.Inject;
-import java.nio.file.Path;
 
 /**
  * Created by LKLeen on 17.12.2014.

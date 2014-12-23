@@ -1,4 +1,4 @@
-package de.steinberg.gyp.gui.treeview.filesystem;
+package de.steinberg.gyp.gui.view.tree.filesystem;
 
 import de.steinberg.gyp.core.model.GypNode;
 import de.steinberg.gyp.core.model.GypNodeType;

@@ -1,11 +1,10 @@
-package de.steinberg.gyp.gui.treeview.filesystem;
+package de.steinberg.gyp.gui.view.tree.filesystem;
 
-import javafx.beans.InvalidationListener;
+import de.steinberg.gyp.gui.view.tree.layout.TreeCellLayoutHandler;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.TreeCell;
 import lombok.Data;
 
 import java.nio.file.Path;
@@ -16,29 +15,28 @@ import java.nio.file.Path;
 @Data
 public class PathView {
     final Path path;
+    final TreeCellLayoutHandler layoutHandler;
+
     FloatProperty correlation = new SimpleFloatProperty(0F);
     ChangeListener<? super Number> changeListener;
     PathTreeCell cell;
 
-    public void updateChangeListener(PathTreeCell cell) {
-        removeOldListener();
-        addNewListener(cell);
+    public PathView(Path path, TreeCellLayoutHandler layoutHandler) {
+        this.path = path;
+        this.layoutHandler = layoutHandler;
     }
 
-    private void addNewListener(final PathTreeCell cell) {
+    public void addChangeListener(PathTreeCell cell) {
+        if (changeListener != null)
+            return;
+
         changeListener = new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                cell.updateBackground(newValue.floatValue());
+                layoutHandler.updateBackGround(cell, newValue.floatValue());
             }
         };
         correlation.addListener(changeListener);
-    }
-
-    private void removeOldListener() {
-        if (changeListener != null) {
-            correlation.removeListener(changeListener);
-        }
     }
 
 }

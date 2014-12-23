@@ -10,7 +10,7 @@ import de.steinberg.gyp.gui.exception.GypFileParsingException;
 import de.steinberg.gyp.gui.exception.GypTreeViewInitializationException;
 import de.steinberg.gyp.gui.settings.GuiSettings;
 import de.steinberg.gyp.gui.settings.GuiSettingsHandler;
-import de.steinberg.gyp.gui.treeview.gypfile.GypTreeCellFactory;
+import de.steinberg.gyp.gui.view.tree.gypfile.GypTreeCellFactory;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import lombok.extern.slf4j.Slf4j;

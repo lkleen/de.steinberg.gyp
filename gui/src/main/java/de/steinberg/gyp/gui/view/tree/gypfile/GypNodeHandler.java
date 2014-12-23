@@ -1,4 +1,4 @@
-package de.steinberg.gyp.gui.treeview.gypfile;
+package de.steinberg.gyp.gui.view.tree.gypfile;
 
 import de.steinberg.gyp.core.model.GypNode;
 import javafx.scene.control.TreeItem;

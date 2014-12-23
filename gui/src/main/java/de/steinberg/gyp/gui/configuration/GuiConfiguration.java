@@ -6,25 +6,17 @@ import de.steinberg.gyp.gui.dialog.FileSelector;
 import de.steinberg.gyp.gui.icons.IconResolver;
 import de.steinberg.gyp.gui.initializer.GypTreeViewInitializer;
 import de.steinberg.gyp.gui.initializer.PathTreeViewInitializer;
-import de.steinberg.gyp.gui.logging.LogAppender;
-import de.steinberg.gyp.gui.logging.LogWriter;
 import de.steinberg.gyp.gui.settings.GuiSettingsHandler;
 import de.steinberg.gyp.gui.settings.SettingsTab;
-import de.steinberg.gyp.gui.treeview.filesystem.PathNodeHandler;
-import de.steinberg.gyp.gui.treeview.filesystem.PathTreeCellContextMenuFactory;
-import de.steinberg.gyp.gui.treeview.filesystem.PathTreeCellFactory;
-import de.steinberg.gyp.gui.treeview.filesystem.RootNodeCreator;
-import de.steinberg.gyp.gui.treeview.gypfile.GypNodeHandler;
-import de.steinberg.gyp.gui.treeview.gypfile.GypTreeCellFactory;
-import javafx.beans.InvalidationListener;
+import de.steinberg.gyp.gui.view.tree.filesystem.PathNodeHandler;
+import de.steinberg.gyp.gui.view.tree.filesystem.PathTreeCellContextMenuFactory;
+import de.steinberg.gyp.gui.view.tree.filesystem.PathTreeCellFactory;
+import de.steinberg.gyp.gui.view.tree.filesystem.RootNodeCreator;
+import de.steinberg.gyp.gui.view.tree.gypfile.GypNodeHandler;
+import de.steinberg.gyp.gui.view.tree.gypfile.GypTreeCellFactory;
+import de.steinberg.gyp.gui.view.tree.layout.TreeCellLayoutHandler;
 import javafx.beans.property.FloatProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.css.StyleableObjectProperty;
-import javafx.scene.layout.Background;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -35,6 +27,9 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import(ApplicationConfiguration.class)
 public class GuiConfiguration {
+
+    @Bean
+    public TreeCellLayoutHandler treeCellLayoutHandler() {return new TreeCellLayoutHandler();}
 
     @Bean
     public FloatProperty floatProperty() {return new SimpleFloatProperty(1F);}

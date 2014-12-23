@@ -1,4 +1,4 @@
-package de.steinberg.gyp.gui.treeview;
+package de.steinberg.gyp.gui.view.tree;
 
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TreeCell;

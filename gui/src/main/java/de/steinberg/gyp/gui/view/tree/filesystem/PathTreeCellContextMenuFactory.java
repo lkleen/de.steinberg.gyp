@@ -1,8 +1,8 @@
-package de.steinberg.gyp.gui.treeview.filesystem;
+package de.steinberg.gyp.gui.view.tree.filesystem;
 
 import de.steinberg.gyp.core.model.GypNode;
 import de.steinberg.gyp.gui.FXMLElementsAccessor;
-import de.steinberg.gyp.gui.treeview.ContextMenuFactory;
+import de.steinberg.gyp.gui.view.tree.ContextMenuFactory;
 import javafx.scene.control.*;
 import lombok.extern.slf4j.Slf4j;
 

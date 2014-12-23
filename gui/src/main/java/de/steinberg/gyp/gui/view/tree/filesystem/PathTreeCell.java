@@ -1,26 +1,13 @@
-package de.steinberg.gyp.gui.treeview.filesystem;
+package de.steinberg.gyp.gui.view.tree.filesystem;
 
 import de.steinberg.gyp.gui.exception.FileSystemAccessException;
 import de.steinberg.gyp.gui.icons.IconResolver;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.binding.FloatBinding;
 import javafx.beans.property.FloatProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.Parent;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Skin;
 import javafx.scene.control.TreeCell;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import lombok.extern.slf4j.Slf4j;
-
-import java.nio.file.Path;
 
 /**
  * Created by LKLeen on 17.12.2014.
@@ -31,6 +18,8 @@ public class PathTreeCell extends TreeCell<PathView> {
     final IconResolver iconResolver;
     final PathNodeHandler pathNodeHandler;
     final PathTreeCellContextMenuFactory contextMenuFactory;
+
+    Background defaultBackGround;
 
     public PathTreeCell(IconResolver iconResolver, PathNodeHandler pathNodeHandler, PathTreeCellContextMenuFactory contextMenuFactory, FloatProperty other) {
         this.iconResolver = iconResolver;
@@ -45,12 +34,11 @@ public class PathTreeCell extends TreeCell<PathView> {
         if (item == null || empty) {
             setText(null);
             setGraphic(null);
-            setBackground(null);
             return;
         }
 
         //setBackground(null);
-        item.updateChangeListener(this);
+        item.addChangeListener(this);
 
         updateText(item);
         updateGraphic(item);
@@ -64,6 +52,8 @@ public class PathTreeCell extends TreeCell<PathView> {
 
         contextMenuFactory.createContextMenu(this);
     }
+
+
 
     public void updateBackground(float correlationValue) {
         if(correlationValue >= 1)

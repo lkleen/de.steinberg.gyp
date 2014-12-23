@@ -1,7 +1,7 @@
 package de.steinberg.gyp.gui;
 
 import de.steinberg.gyp.core.model.GypNode;
-import de.steinberg.gyp.gui.treeview.filesystem.PathView;
+import de.steinberg.gyp.gui.view.tree.filesystem.PathView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeView;
 import lombok.Data;
