@@ -22,7 +22,7 @@ public class FileSystemAccessor {
     @Inject
     FileSystem fileSystem;
 
-    String pathPattern = "glob:*.h";
+    String pathPattern = "glob:*.{h,cpp}";
 
     public FileSet getFilesFrom(Path start) {
         FileSet files = new FileSet();

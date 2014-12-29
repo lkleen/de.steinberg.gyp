@@ -27,7 +27,7 @@ public class ComparisonResultView {
     }
 
     private void appendMissingInFilesSystem(TextArea output, PathTreeViewComparator.Result result) {
-        output.appendText("files missing in filesystem:\n");
+        output.appendText("files missing in " + result.getSourcePath().toString() + "\n");
         output.appendText(result.getFilesMissingInFilesystem().toString() + "\n");
     }
 

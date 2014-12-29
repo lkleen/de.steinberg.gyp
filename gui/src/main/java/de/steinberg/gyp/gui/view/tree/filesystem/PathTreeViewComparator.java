@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.Setter;
 
 import javax.inject.Inject;
+import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
 /**
@@ -18,10 +19,12 @@ public class PathTreeViewComparator implements Callable<PathTreeViewComparator.R
 
     @Data
     public class Result {
+        final Path sourcePath;
         final FileSet filesMissingInFilesystem;
         final FileSet filesMissingInConfiguration;
 
-        public Result(FileSet filesMissingInFilesystem, FileSet filesMissingInConfiguration) {
+        public Result(Path sourcePath, FileSet filesMissingInFilesystem, FileSet filesMissingInConfiguration) {
+            this.sourcePath = sourcePath;
             this.filesMissingInFilesystem = filesMissingInFilesystem;
             this.filesMissingInConfiguration = filesMissingInConfiguration;
         }
@@ -44,7 +47,7 @@ public class PathTreeViewComparator implements Callable<PathTreeViewComparator.R
         FileSet filesInFileSystem = fileSystemAccessor.getFilesFrom(parameters.getPath());
         FileSet filesInGypNode = parameters.getGypNode().getAllFiles();
         FileSetComparisonResult filesetResult = fileSetComparator.compare(filesInFileSystem, filesInGypNode);
-        Result result = new Result(filesetResult.missingLeft, filesetResult.missingRight);
+        Result result = new Result(parameters.getPath(), filesetResult.missingLeft, filesetResult.missingRight);
         resultView.print(result);
         return result;
     }

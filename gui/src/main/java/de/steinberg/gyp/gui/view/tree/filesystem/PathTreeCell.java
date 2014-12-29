@@ -6,6 +6,8 @@ import javafx.beans.property.FloatProperty;
 import javafx.scene.control.TreeCell;
 import lombok.extern.slf4j.Slf4j;
 
+import java.nio.file.Path;
+
 /**
  * Created by LKLeen on 17.12.2014.
  */
@@ -47,7 +49,14 @@ public class PathTreeCell extends TreeCell<PathView> {
     }
 
     private void updateText(PathView item) {
-        setText(item.getPath().toString());
+        if (item == null || item.getPath() == null)
+            return;
+
+        Path path = item.getPath();
+        int count = path.getNameCount();
+
+        String text = (count == 0) ? path.toString() : path.getName(count - 1).toString();
+        setText(text);
     }
 
     private void updateGraphic(PathView item) {
