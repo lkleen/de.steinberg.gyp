@@ -3,6 +3,7 @@ package de.steinberg.gyp.gui.controller;
 import de.steinberg.gyp.core.model.GypNode;
 import de.steinberg.gyp.gui.FXMLElementsAccessor;
 import de.steinberg.gyp.gui.dialog.FileSelector;
+import de.steinberg.gyp.gui.exception.GypFileParsingException;
 import de.steinberg.gyp.gui.exception.GypTreeViewInitializationException;
 import de.steinberg.gyp.gui.initializer.GypTreeViewInitializer;
 import de.steinberg.gyp.gui.initializer.PathTreeViewInitializer;
@@ -85,7 +86,7 @@ public class Controller {
             gypTreeViewInitializer.initialize(gypTreeView, path);
             pathTreeViewInitializer.initialize(pathTreeView);
             log.info("opened {}", path.toString());
-        } catch (GypTreeViewInitializationException e) {
+        } catch (GypTreeViewInitializationException|GypFileParsingException e) {
             log.warn("could not load {} {}", path.toString(), e.getMessage());
             gypTreeView.setRoot(null);
             pathTreeViewInitializer.initialize(pathTreeView);
